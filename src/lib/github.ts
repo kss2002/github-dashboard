@@ -1,0 +1,70 @@
+import { GITHUB_USERNAME } from "./constants";
+
+export interface GitHubUser {
+  login: string;
+  avatar_url: string;
+  html_url: string;
+  name: string | null;
+  bio: string | null;
+  blog: string | null;
+  public_repos: number;
+  followers: number;
+  following: number;
+}
+
+export interface GitHubRepo {
+  id: number;
+  name: string;
+  full_name: string;
+  html_url: string;
+  description: string | null;
+  fork: boolean;
+  language: string | null;
+  topics: string[];
+  updated_at: string;
+  homepage: string | null;
+}
+
+export async function fetchUser(): Promise<GitHubUser> {
+  const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
+  if (!res.ok) throw new Error("Failed to fetch user");
+  return res.json();
+}
+
+export async function fetchRepos(): Promise<GitHubRepo[]> {
+  const allRepos: GitHubRepo[] = [];
+  let page = 1;
+
+  while (true) {
+    const res = await fetch(
+      `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated&page=${page}`
+    );
+    if (!res.ok) throw new Error("Failed to fetch repos");
+    const repos: GitHubRepo[] = await res.json();
+    if (repos.length === 0) break;
+    allRepos.push(...repos);
+    if (repos.length < 100) break;
+    page++;
+  }
+
+  return allRepos;
+}
+
+export async function fetchStarred(): Promise<GitHubRepo[]> {
+  const allStarred: GitHubRepo[] = [];
+  let page = 1;
+
+  while (true) {
+    const res = await fetch(
+      `https://api.github.com/users/${GITHUB_USERNAME}/starred?per_page=100&page=${page}`
+    );
+    if (!res.ok) throw new Error("Failed to fetch starred");
+    const repos: GitHubRepo[] = await res.json();
+    if (repos.length === 0) break;
+    allStarred.push(...repos);
+    if (repos.length < 100) break;
+    page++;
+  }
+
+  return allStarred;
+}
