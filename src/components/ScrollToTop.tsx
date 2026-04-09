@@ -28,10 +28,10 @@ export function ScrollToTop() {
     <Button
       onClick={scrollToTop}
       size="icon"
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 rounded-full shadow-lg transition-all duration-300 ease-out cursor-pointer"
+      className="fixed bottom-6 right-6 z-50 rounded-full shadow-lg transition-all duration-300 ease-out cursor-pointer"
       style={{
         opacity: visible ? 1 : 0,
-        transform: `translateX(-50%) translateY(${visible ? '0' : '20px'})`,
+        transform: `translateY(${visible ? '0' : '20px'})`,
         pointerEvents: visible ? 'auto' : 'none',
       }}
       aria-label="맨 위로 스크롤"
