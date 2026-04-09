@@ -6,6 +6,7 @@ import { SearchBar } from "@/components/SearchBar";
 import { FilterControls, type SortOption } from "@/components/FilterControls";
 import { RepoTabs } from "@/components/RepoTabs";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ScrollToTop } from "@/components/ScrollToTop";
 
 function LoadingSkeleton() {
   return (
@@ -117,6 +118,7 @@ export default function App() {
 
         <RepoTabs repos={filteredRepos} starred={filteredStarred} />
       </div>
+      <ScrollToTop />
     </div>
   );
 }
