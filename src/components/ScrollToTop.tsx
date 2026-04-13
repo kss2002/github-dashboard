@@ -28,7 +28,7 @@ export function ScrollToTop() {
     <Button
       onClick={scrollToTop}
       size="icon"
-      className="fixed bottom-6 right-6 z-50 rounded-full shadow-lg transition-all duration-300 ease-out cursor-pointer"
+      className="fixed h-12 w-12 bottom-8 right-8 z-50 rounded-full shadow-lg transition-all duration-300 ease-out cursor-pointer"
       style={{
         opacity: visible ? 1 : 0,
         transform: `translateY(${visible ? '0' : '20px'})`,
@@ -36,7 +36,7 @@ export function ScrollToTop() {
       }}
       aria-label="맨 위로 스크롤"
     >
-      <ArrowUp className="h-5 w-5" />
+      <ArrowUp className="size-6" />
     </Button>
   );
 }
