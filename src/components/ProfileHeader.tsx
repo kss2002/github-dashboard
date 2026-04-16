@@ -1,6 +1,6 @@
-import type { GitHubUser } from "@/lib/github";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
+import type { GitHubUser } from '@/lib/github';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
 
 interface ProfileHeaderProps {
   user: GitHubUser;
@@ -18,7 +18,9 @@ export function ProfileHeader({
       <a href={user.html_url} target="_blank" rel="noopener noreferrer">
         <Avatar className="h-20 w-20 sm:h-24 sm:w-24">
           <AvatarImage src={user.avatar_url} alt={user.login} />
-          <AvatarFallback>{user.login.slice(0, 2).toUpperCase()}</AvatarFallback>
+          <AvatarFallback>
+            {user.login.slice(0, 2).toUpperCase()}
+          </AvatarFallback>
         </Avatar>
       </a>
 
@@ -40,10 +42,22 @@ export function ProfileHeader({
         )}
 
         <div className="flex flex-wrap gap-2 mt-1">
-          <Badge variant="secondary">📦 Repos {repoCount}</Badge>
-          <Badge variant="secondary">⭐ Starred {starredCount}</Badge>
-          <Badge variant="secondary">👥 Followers {user.followers}</Badge>
-          <Badge variant="secondary">👤 Following {user.following}</Badge>
+          <div className="flex items-center gap-1 bg-gray-100 rounded-md px-2 py-1">
+            <Badge className="font-tossface">📦 Repositories</Badge>
+            <p>{repoCount}</p>
+          </div>
+          <div className="flex items-center gap-1 bg-gray-100 rounded-md px-2 py-1">
+            <Badge className="font-tossface">⭐ Starred</Badge>
+            <p>{starredCount}</p>
+          </div>
+          <div className="flex items-center gap-1 bg-gray-100 rounded-md px-2 py-1">
+            <Badge className="font-tossface">👥 Followers</Badge>
+            <p>{user.followers}</p>
+          </div>
+          <div className="flex items-center gap-1 bg-gray-100 rounded-md px-2 py-1">
+            <Badge className="font-tossface">👤 Following</Badge>
+            <p>{user.following}</p>
+          </div>
         </div>
       </div>
     </div>
