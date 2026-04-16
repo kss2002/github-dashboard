@@ -1,6 +1,7 @@
 import type { GitHubRepo } from '@/lib/github';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { RepoCard } from './RepoCard';
+import { BookMarked, Star } from 'lucide-react';
 
 interface RepoTabsProps {
   repos: GitHubRepo[];
@@ -11,8 +12,14 @@ export function RepoTabs({ repos, starred }: RepoTabsProps) {
   return (
     <Tabs defaultValue="repos" className="w-full">
       <TabsList>
-        <TabsTrigger value="repos">📦 레포지토리 ({repos.length})</TabsTrigger>
-        <TabsTrigger value="starred">⭐ 스타 ({starred.length})</TabsTrigger>
+        <TabsTrigger value="repos">
+          <BookMarked />
+          레포지토리 ({repos.length})
+        </TabsTrigger>
+        <TabsTrigger value="starred">
+          <Star />
+          스타 ({starred.length})
+        </TabsTrigger>
       </TabsList>
 
       <TabsContent value="repos" className="mt-4">
