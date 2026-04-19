@@ -21,7 +21,7 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
       <BorderBeam
         duration={16}
         size={60}
-        className="from-transparent via-blue-500 to-transparent"
+        className="from-transparent bg-[#d97757] to-transparent"
       />
     </div>
   );
