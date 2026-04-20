@@ -1,6 +1,7 @@
 import type { GitHubUser } from '@/lib/github';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { BorderBeam } from './ui/border-beam';
 
 interface ProfileHeaderProps {
   user: GitHubUser;
@@ -21,6 +22,7 @@ export function ProfileHeader({
           <AvatarFallback>
             {user.login.slice(0, 2).toUpperCase()}
           </AvatarFallback>
+          <BorderBeam borderWidth={2} />
         </Avatar>
       </a>
 
