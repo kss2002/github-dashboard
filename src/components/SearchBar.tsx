@@ -1,6 +1,5 @@
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
-import { BorderBeam } from './ui/border-beam';
 
 interface SearchBarProps {
   value: string;
@@ -17,11 +16,6 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="pl-9"
-      />
-      <BorderBeam
-        duration={16}
-        size={60}
-        className="from-transparent bg-[#d97757] to-transparent"
       />
     </div>
   );
