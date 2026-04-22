@@ -2,6 +2,8 @@
 
 **스택**
 
+- vercel
+- husky
 - pnpm
 - react
 - typescript
