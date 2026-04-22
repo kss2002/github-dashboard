@@ -1,12 +1,18 @@
-import { useEffect, useState, useMemo } from "react";
-import type { GitHubUser, GitHubRepo } from "@/lib/github";
-import { fetchUser, fetchRepos, fetchStarred } from "@/lib/github";
-import { ProfileHeader } from "@/components/ProfileHeader";
-import { SearchBar } from "@/components/SearchBar";
-import { FilterControls, type SortOption } from "@/components/FilterControls";
-import { RepoTabs } from "@/components/RepoTabs";
-import { Skeleton } from "@/components/ui/skeleton";
-import { ScrollToTop } from "@/components/ScrollToTop";
+import { useEffect, useState, useMemo } from 'react';
+import type { GitHubUser, GitHubRepo, GitHubEvent } from '@/lib/github';
+import {
+  fetchUser,
+  fetchRepos,
+  fetchStarred,
+  fetchPublicEvents,
+} from '@/lib/github';
+import { GITHUB_USERNAME } from '@/lib/constants';
+import { ProfileHeader } from '@/components/ProfileHeader';
+import { SearchBar } from '@/components/SearchBar';
+import { FilterControls, type SortOption } from '@/components/FilterControls';
+import { RepoTabs } from '@/components/RepoTabs';
+import { Skeleton } from '@/components/ui/skeleton';
+import { ScrollToTop } from '@/components/ScrollToTop';
 
 function LoadingSkeleton() {
   return (
@@ -25,7 +31,7 @@ function LoadingSkeleton() {
       </div>
       <div className="flex gap-3">
         <Skeleton className="h-9 flex-1" />
-        <Skeleton className="h-9 w-[140px]" />
+        <Skeleton className="h-9 w-35" />
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {Array.from({ length: 8 }).map((_, i) => (
@@ -38,7 +44,7 @@ function LoadingSkeleton() {
 
 function sortRepos(repos: GitHubRepo[], sort: SortOption): GitHubRepo[] {
   return [...repos].sort((a, b) => {
-    if (sort === "name") return a.name.localeCompare(b.name);
+    if (sort === 'name') return a.name.localeCompare(b.name);
     return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
   });
 }
@@ -53,10 +59,11 @@ export default function App() {
   const [user, setUser] = useState<GitHubUser | null>(null);
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
   const [starred, setStarred] = useState<GitHubRepo[]>([]);
+  const [events, setEvents] = useState<GitHubEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [search, setSearch] = useState("");
-  const [sort, setSort] = useState<SortOption>("updated");
+  const [search, setSearch] = useState('');
+  const [sort, setSort] = useState<SortOption>('updated');
 
   useEffect(() => {
     async function load() {
@@ -66,11 +73,15 @@ export default function App() {
           fetchRepos(),
           fetchStarred(),
         ]);
+        const e = await fetchPublicEvents().catch(() => []);
         setUser(u);
         setRepos(r);
         setStarred(s);
+        setEvents(e);
       } catch (e) {
-        setError(e instanceof Error ? e.message : "데이터를 불러올 수 없습니다.");
+        setError(
+          e instanceof Error ? e.message : '데이터를 불러올 수 없습니다.',
+        );
       } finally {
         setLoading(false);
       }
@@ -80,12 +91,12 @@ export default function App() {
 
   const filteredRepos = useMemo(
     () => sortRepos(filterRepos(repos, search), sort),
-    [repos, search, sort]
+    [repos, search, sort],
   );
 
   const filteredStarred = useMemo(
     () => sortRepos(filterRepos(starred, search), sort),
-    [starred, search, sort]
+    [starred, search, sort],
   );
 
   if (loading) return <LoadingSkeleton />;
@@ -116,7 +127,12 @@ export default function App() {
           <FilterControls sort={sort} onSortChange={setSort} />
         </div>
 
-        <RepoTabs repos={filteredRepos} starred={filteredStarred} />
+        <RepoTabs
+          username={user?.login ?? GITHUB_USERNAME}
+          repos={filteredRepos}
+          starred={filteredStarred}
+          events={events}
+        />
       </div>
       <ScrollToTop />
     </div>

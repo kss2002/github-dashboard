@@ -1,4 +1,4 @@
-import { GITHUB_USERNAME } from "./constants";
+import { GITHUB_USERNAME } from './constants';
 
 export interface GitHubUser {
   login: string;
@@ -25,9 +25,22 @@ export interface GitHubRepo {
   homepage: string | null;
 }
 
+export interface GitHubEvent {
+  id: string;
+  type: string;
+  created_at: string;
+  repo: {
+    name: string;
+    url: string;
+  };
+  payload?: {
+    action?: string;
+  };
+}
+
 export async function fetchUser(): Promise<GitHubUser> {
   const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
-  if (!res.ok) throw new Error("Failed to fetch user");
+  if (!res.ok) throw new Error('Failed to fetch user');
   return res.json();
 }
 
@@ -37,9 +50,9 @@ export async function fetchRepos(): Promise<GitHubRepo[]> {
 
   while (true) {
     const res = await fetch(
-      `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated&page=${page}`
+      `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated&page=${page}`,
     );
-    if (!res.ok) throw new Error("Failed to fetch repos");
+    if (!res.ok) throw new Error('Failed to fetch repos');
     const repos: GitHubRepo[] = await res.json();
     if (repos.length === 0) break;
     allRepos.push(...repos);
@@ -56,9 +69,9 @@ export async function fetchStarred(): Promise<GitHubRepo[]> {
 
   while (true) {
     const res = await fetch(
-      `https://api.github.com/users/${GITHUB_USERNAME}/starred?per_page=100&page=${page}`
+      `https://api.github.com/users/${GITHUB_USERNAME}/starred?per_page=100&page=${page}`,
     );
-    if (!res.ok) throw new Error("Failed to fetch starred");
+    if (!res.ok) throw new Error('Failed to fetch starred');
     const repos: GitHubRepo[] = await res.json();
     if (repos.length === 0) break;
     allStarred.push(...repos);
@@ -67,4 +80,12 @@ export async function fetchStarred(): Promise<GitHubRepo[]> {
   }
 
   return allStarred;
+}
+
+export async function fetchPublicEvents(): Promise<GitHubEvent[]> {
+  const res = await fetch(
+    `https://api.github.com/users/${GITHUB_USERNAME}/events/public?per_page=100`,
+  );
+  if (!res.ok) throw new Error('Failed to fetch public events');
+  return res.json();
 }

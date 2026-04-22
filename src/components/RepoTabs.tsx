@@ -1,14 +1,18 @@
 import type { GitHubRepo } from '@/lib/github';
+import type { GitHubEvent } from '@/lib/github';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { RepoCard } from './RepoCard';
-import { BookMarked, Star } from 'lucide-react';
+import { Activity, BookMarked, Star } from 'lucide-react';
+import { ActivityTab } from './ActivityTab';
 
 interface RepoTabsProps {
+  username: string;
   repos: GitHubRepo[];
   starred: GitHubRepo[];
+  events: GitHubEvent[];
 }
 
-export function RepoTabs({ repos, starred }: RepoTabsProps) {
+export function RepoTabs({ username, repos, starred, events }: RepoTabsProps) {
   return (
     <Tabs defaultValue="repos" className="w-full">
       <TabsList>
@@ -19,6 +23,10 @@ export function RepoTabs({ repos, starred }: RepoTabsProps) {
         <TabsTrigger value="starred">
           <Star />
           스타 ({starred.length})
+        </TabsTrigger>
+        <TabsTrigger value="activity">
+          <Activity />
+          Activity
         </TabsTrigger>
       </TabsList>
 
@@ -48,6 +56,10 @@ export function RepoTabs({ repos, starred }: RepoTabsProps) {
             ))}
           </div>
         )}
+      </TabsContent>
+
+      <TabsContent value="activity" className="mt-4">
+        <ActivityTab username={username} events={events} />
       </TabsContent>
     </Tabs>
   );
