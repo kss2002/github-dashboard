@@ -13,6 +13,7 @@ import { FilterControls, type SortOption } from '@/components/FilterControls';
 import { RepoTabs } from '@/components/RepoTabs';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ScrollToTop } from '@/components/ScrollToTop';
+import { LightRays } from './components/ui/light-rays';
 
 function LoadingSkeleton() {
   return (
@@ -110,7 +111,8 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen bg-background">
+      <LightRays color="rgba(160, 210, 255, 0.2)" />
       <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
         {user && (
           <ProfileHeader
