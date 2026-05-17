@@ -14,6 +14,13 @@ export function ProfileHeader({
   repoCount,
   starredCount,
 }: ProfileHeaderProps) {
+  const stats = [
+    { label: '📦 Repositories', value: repoCount },
+    { label: '⭐ Starred', value: starredCount },
+    { label: '👥 Followers', value: user.followers },
+    { label: '👤 Following', value: user.following },
+  ];
+
   return (
     <div className="flex flex-col items-center gap-4 py-8 sm:flex-row sm:items-start sm:gap-6">
       <a href={user.html_url} target="_blank" rel="noopener noreferrer">
@@ -22,7 +29,6 @@ export function ProfileHeader({
           <AvatarFallback>
             {user.login.slice(0, 2).toUpperCase()}
           </AvatarFallback>
-          <BorderBeam borderWidth={2} />
         </Avatar>
       </a>
 
@@ -43,23 +49,18 @@ export function ProfileHeader({
           <p className="max-w-md text-sm text-muted-foreground">{user.bio}</p>
         )}
 
-        <div className="flex flex-wrap gap-2 mt-1">
-          <div className="flex items-center gap-1 bg-gray-100 rounded-md px-2 py-1">
-            <Badge className="font-tossface">📦 Repositories</Badge>
-            <p>{repoCount}</p>
-          </div>
-          <div className="flex items-center gap-1 bg-gray-100 rounded-md px-2 py-1">
-            <Badge className="font-tossface">⭐ Starred</Badge>
-            <p>{starredCount}</p>
-          </div>
-          <div className="flex items-center gap-1 bg-gray-100 rounded-md px-2 py-1">
-            <Badge className="font-tossface">👥 Followers</Badge>
-            <p>{user.followers}</p>
-          </div>
-          <div className="flex items-center gap-1 bg-gray-100 rounded-md px-2 py-1">
-            <Badge className="font-tossface">👤 Following</Badge>
-            <p>{user.following}</p>
-          </div>
+        <div className="relative flex flex-wrap gap-2 mt-1">
+          {stats.map(({ label, value }) => (
+            <div
+              key={label}
+              className="flex items-center gap-1 bg-gray-100 rounded-md px-2 py-1"
+            >
+              <BorderBeam borderWidth={2} />
+
+              <Badge className="font-tossface">{label}</Badge>
+              <p>{value}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
