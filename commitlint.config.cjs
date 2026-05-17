@@ -20,7 +20,7 @@ module.exports = {
     'type-case': [2, 'always', 'lower-case'],
     'subject-empty': [2, 'never'],
     'subject-full-stop': [2, 'never', '.'],
-    'subject-case': [2, 'always', 'lower-case'],
-    'scope-case': [2, 'always', 'lower-case'],
+    'subject-case': [0],
+    'scope-case': [0],
   },
 };
