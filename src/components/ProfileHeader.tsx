@@ -56,7 +56,6 @@ export function ProfileHeader({
               className="flex items-center gap-1 bg-gray-100 rounded-md px-2 py-1"
             >
               <BorderBeam borderWidth={2} />
-
               <Badge className="font-tossface">{label}</Badge>
               <p>{value}</p>
             </div>
