@@ -1,7 +1,6 @@
 import type { GitHubUser } from '@/lib/github';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { BorderBeam } from './ui/border-beam';
 import { NumberTicker } from '@/components/ui/number-ticker';
 import { Backlight } from './ui/backlight';
 
@@ -59,7 +58,6 @@ export function ProfileHeader({
               key={label}
               className="flex items-center gap-1 bg-gray-100 rounded-md px-2 py-1"
             >
-              <BorderBeam borderWidth={2} />
               <Badge className="font-tossface">{label}</Badge>
               <NumberTicker
                 value={value}
