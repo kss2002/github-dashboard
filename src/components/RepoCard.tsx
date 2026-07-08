@@ -22,7 +22,7 @@ export function RepoCard({ repo }: RepoCardProps) {
         gradientColor="#D9D9D955"
         className="flex h-full flex-col rounded-xl p-0 transition-shadow hover:shadow-md"
       >
-        <CardHeader className="pb-2 px-4 pt-4">
+        <CardHeader className="pb-3 px-5 pt-6">
           <div className="flex items-start justify-between gap-2">
             <div className="flex min-w-0 items-center gap-2">
               <CardTitle className="min-w-0 flex-1 text-base">
@@ -50,7 +50,7 @@ export function RepoCard({ repo }: RepoCardProps) {
           )}
         </CardHeader>
 
-        <CardContent className="mt-auto px-4 pt-0 pb-4">
+        <CardContent className="mt-auto px-5 pt-2 pb-6">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <div className="flex items-center gap-3">
               {repo.language && (
@@ -69,7 +69,7 @@ export function RepoCard({ repo }: RepoCardProps) {
           </div>
 
           {repo.topics.length > 0 && (
-            <div className="mt-2 flex flex-wrap gap-1">
+            <div className="mt-3 flex flex-wrap gap-1">
               {repo.topics.slice(0, 4).map((topic) => (
                 <Badge
                   key={topic}
