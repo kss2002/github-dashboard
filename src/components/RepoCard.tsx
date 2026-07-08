@@ -44,7 +44,7 @@ export function RepoCard({ repo }: RepoCardProps) {
             </div>
           </div>
           {repo.description && (
-            <CardDescription className="mt-1 line-clamp-2 text-sm">
+            <CardDescription className="mt-2 line-clamp-3 text-sm leading-relaxed">
               {repo.description}
             </CardDescription>
           )}
