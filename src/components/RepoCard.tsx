@@ -25,7 +25,7 @@ export function RepoCard({ repo }: RepoCardProps) {
         <CardHeader className="pb-3 px-5 pt-6">
           <div className="flex items-start justify-between gap-2">
             <div className="flex min-w-0 items-center gap-2">
-              <CardTitle className="min-w-0 flex-1 text-base">
+              <CardTitle className="min-w-0 flex-1 text-lg">
                 <a
                   href={repo.html_url}
                   target="_blank"
