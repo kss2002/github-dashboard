@@ -28,7 +28,7 @@ export function ScrollToTop() {
     <Button
       onClick={scrollToTop}
       size="icon"
-      className="fixed h-12 w-12 bottom-8 right-8 z-50 rounded-full shadow-lg transition-all duration-300 ease-out cursor-pointer"
+      className="fixed h-12 w-12 bottom-8 right-8 z-50 rounded-full border border-border bg-white text-black shadow-lg transition-all duration-300 ease-out cursor-pointer hover:bg-neutral-100"
       style={{
         opacity: visible ? 1 : 0,
         transform: `translateY(${visible ? '0' : '20px'})`,
